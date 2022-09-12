@@ -1,0 +1,53 @@
+<html lang="ja">
+
+<meta charset="utf-8">
+
+<h1>Collatz</h1>
+
+<input type="text" id="targetNumber">計算対象数</input>
+
+<br/>
+<button onclick="exec()">計算開始</button>
+<br/>
+<div>計算結果<span id="result"></span></div>
+<div>処理時間<span id="time"></span>ミリ秒</div>
+
+<script>
+	function exec(){
+		const start = performance.now();
+	  var n = Number(document.getElementById('targetNumber').value);
+	  var acc = 0;
+	  for(var i = 1 ; i <= n ; i++){
+	  	acc += collatz(i);
+	  	acc %= 1000000007;
+	  }
+	  
+	 const end = performance.now();
+	  
+	 
+		
+	  
+	  document.getElementById('result').innerHTML = acc;
+	  document.getElementById('time').innerHTML = end - start;
+	  
+	}
+	
+	function collatz(i){
+		var cnt = 0;
+		while( i != 1){
+			cnt+=1;
+			if (i % 2 == 0){
+				i = i/2;
+			}else{
+			 i = i * 3;
+			 i += 1;
+			}
+		}
+		return cnt;
+	}
+	
+	
+</script>
+
+
+</html>	
