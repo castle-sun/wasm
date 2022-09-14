@@ -1001,7 +1001,7 @@ function createExportWrapper(name, fixedasm) {
 }
 
 var wasmBinaryFile;
-  wasmBinaryFile = 'calc.wasm';
+  wasmBinaryFile = '1.wasm';
   if (!isDataURI(wasmBinaryFile)) {
     wasmBinaryFile = locateFile(wasmBinaryFile);
   }
@@ -1390,6 +1390,13 @@ var ASM_CONSTS = {
   
       _proc_exit(status);
     }
+
+  function allocateUTF8OnStack(str) {
+      var size = lengthBytesUTF8(str) + 1;
+      var ret = stackAlloc(size);
+      stringToUTF8Array(str, HEAP8, ret, size);
+      return ret;
+    }
 var ASSERTIONS = true;
 
 function checkIncomingModuleAPI() {
@@ -1405,7 +1412,7 @@ var asm = createWasm();
 var ___wasm_call_ctors = Module["___wasm_call_ctors"] = createExportWrapper("__wasm_call_ctors");
 
 /** @type {function(...*):?} */
-var _main = Module["_main"] = createExportWrapper("main");
+var _main = Module["_main"] = createExportWrapper("__main_argc_argv");
 
 /** @type {function(...*):?} */
 var ___errno_location = Module["___errno_location"] = createExportWrapper("__errno_location");
@@ -1771,7 +1778,6 @@ var missingLibrarySymbols = [
   'stringToUTF32',
   'lengthBytesUTF32',
   'allocateUTF8',
-  'allocateUTF8OnStack',
   'writeStringToMemory',
   'writeAsciiToMemory',
   'getSocketFromFD',
@@ -1866,8 +1872,16 @@ function callMain(args) {
 
   var entryFunction = Module['_main'];
 
-  var argc = 0;
-  var argv = 0;
+  args = args || [];
+  args.unshift(thisProgram);
+
+  var argc = args.length;
+  var argv = stackAlloc((argc + 1) * 4);
+  var argv_ptr = argv >> 2;
+  args.forEach((arg) => {
+    HEAP32[argv_ptr++] = allocateUTF8OnStack(arg);
+  });
+  HEAP32[argv_ptr] = 0;
 
   try {
 
