@@ -11,6 +11,7 @@
 
 <script>
 
+
     function fib(n){
         
         if (n < 2) {
@@ -22,12 +23,13 @@
 
 	function exec(){
 
-        var n = 39;
 
         const start = performance.now();
-        var result = fib(n);
-        const end = performance.now();
 
+        const n = 39;
+        const result = fib(n);
+
+        const end = performance.now();
         document.getElementById('result').innerHTML = result;
         document.getElementById('time').innerHTML = (end - start) / 1000;
 	  

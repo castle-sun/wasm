@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
 
 int fib(int n)
@@ -14,13 +13,12 @@ int fib(int n)
 int main(int argc, char *argv[])
 {
     clock_t begin, end;
+    begin = clock();
 
     int n = 39;
-
-    begin = clock();
     int result = fib(n);
-    end = clock();
 
+    end = clock();
     printf("結果[%d],処理時間[%lf][S]\n",result,difftime(end, begin) / CLOCKS_PER_SEC);
     
     return 0;

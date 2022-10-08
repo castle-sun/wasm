@@ -14,12 +14,12 @@
 
 
 	function collatz(i){
-		var cnt = 0;
-		while( i != 1){
-			cnt+=1;
-			if (i % 2 == 0){
+		let cnt = 0;
+		while ( i != 1) {
+			cnt += 1;
+			if (i % 2 == 0) {
 				i = i/2;
-			}else{
+			} else {
 			 i = i * 3;
 			 i += 1;
 			}
@@ -29,13 +29,15 @@
 
 	function exec(){
 		const start = performance.now();
-	  	var n = 1000000;
-	  	var acc = 0;
-	  	for(var i = 1 ; i <= n ; i++){
+
+		
+	  	const n = 1000000;
+	  	let acc = 0;
+	  	for (let i = 1 ; i <= n ; i++) {
 	  		acc += collatz(i);
 	  	}
+
 	 	const end = performance.now();
-	  
 	  	document.getElementById('result').innerHTML = acc;
 	  	document.getElementById('time').innerHTML = (end - start) / 1000;
 	}
