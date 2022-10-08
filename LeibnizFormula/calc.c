@@ -17,10 +17,10 @@ int main(int argc, char *argv[])
     begin = clock();
 
     int n = 100000000;
-    int result = leibniz(n);
+    double result = leibniz(n);
 
     end = clock();
-    printf("結果[%d],処理時間[%lf][S]\n",result,difftime(end, begin) / CLOCKS_PER_SEC);
+    printf("結果[%lf],処理時間[%lf][S]\n",result,difftime(end, begin) / CLOCKS_PER_SEC);
     
     return 0;
 }
