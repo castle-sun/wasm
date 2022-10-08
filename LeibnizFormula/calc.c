@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     double result = leibniz(n);
 
     end = clock();
-    printf("結果[%lf],処理時間[%lf][S]\n",result,difftime(end, begin) / CLOCKS_PER_SEC);
+    printf("結果[%.15f],処理時間[%lf][S]\n",result,difftime(end, begin) / CLOCKS_PER_SEC);
     
     return 0;
 }
