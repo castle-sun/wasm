@@ -1,0 +1,42 @@
+<html lang="ja">
+<meta charset="utf-8">
+
+<h1>ライプニッツ</h1>
+
+<br/>
+<button onclick="exec()">計算開始</button>
+<br/>
+<div>計算結果<span id="result"></span></div>
+<div>処理時間<span id="time"></span>秒</div>
+
+<script>
+
+
+
+    function leibniz(n){
+        
+        let s = 0.0;
+        for (let i = 0; i<=n; i++) {
+            s += Math.pow(-1.0, i) / (2*i + 1);
+        }
+        return s * 4;
+    }
+
+	function exec(){
+
+
+        const start = performance.now();
+
+        const n = 100000000;
+        const result = leibniz(n);
+
+        const end = performance.now();
+        document.getElementById('result').innerHTML = result;
+        document.getElementById('time').innerHTML = (end - start) / 1000;
+	  
+	}
+	
+</script>
+
+
+</html>	
